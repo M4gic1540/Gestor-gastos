@@ -1,0 +1,52 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+.Python
+
+# Django migrations (excepto el archivo __init__.py)
+**/migrations/
+!**/migrations/
+0001_initial.py
+
+# SQLite database
+*.sqlite3
+*.db
+
+# Secrets / env
+.env
+*.env
+.env.*
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Pytest / Coverage
+htmlcov/
+.coverage
+.tox/
+.nox/
+.cache/
+coverage.xml
+.pytest_cache/
+
+# Mac/Linux/Windows junk
+.DS_Store
+Thumbs.db
+
+# node_modules (por si agregas frontend en la misma repo)
+node_modules/
+
+# Swagger JSON export (si lo generas)
+swagger.json
+swagger.yaml
