@@ -14,6 +14,7 @@ ENV/
 **/migrations/
 !**/migrations/
 0001_initial.py
+0002_remove_customuser_rut.py
 
 # SQLite database
 *.sqlite3

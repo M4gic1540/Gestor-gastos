@@ -1,11 +1,17 @@
 # core/models.py
 
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+
+class CustomUser(AbstractUser):
+    # Puedes agregar campos extra aquí si lo deseas
+    phone = models.CharField(max_length=20, blank=True)
+    pass
 
 
 class Account(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="accounts")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="accounts")
     name = models.CharField(max_length=100)
     currency = models.CharField(max_length=10, default="CLP")  # o USD, EUR, etc.
 
@@ -18,7 +24,7 @@ class Category(models.Model):
         ("income", "Ingreso"),
         ("expense", "Gasto"),
     ]
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="categories")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="categories")
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
 

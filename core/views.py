@@ -1,9 +1,9 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
-from .models import Account, Category, Transaction
-from .serializers import AccountSerializer, CategorySerializer, TransactionSerializer
+from .models import Account, Category, Transaction, CustomUser
+from .serializers import AccountSerializer, CategorySerializer, TransactionSerializer, UserSerializer
 
 
 # 🔐 Descripción común para todos los endpoints protegidos
@@ -118,3 +118,20 @@ class TransactionViewSet(viewsets.ModelViewSet):
     )
     def destroy(self, request, *args, **kwargs):
         return super().destroy(request, *args, **kwargs)
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+
+    # Permitir registrar (POST) sin autenticación, pero requerir autenticación para otros métodos
+    def get_permissions(self):
+        if self.action == "create":
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
+    @swagger_auto_schema(
+        operation_description="Registrar un nuevo usuario. No requiere autenticación."
+    )
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)

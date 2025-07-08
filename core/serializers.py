@@ -1,7 +1,7 @@
 # core/serializers.py
 
 from rest_framework import serializers
-from .models import Account, Transaction, Category
+from .models import Account, Transaction, Category, CustomUser
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -30,3 +30,9 @@ class AccountDetailSerializer(serializers.ModelSerializer):
         model = Account
         fields = "__all__"
         depth = 1  # Include related objects up to one level deep
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["id", "username", "email", "first_name", "last_name"]
